@@ -132,7 +132,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\BancoDeDados.cs" />
     <Compile Include="Classes\Usuario.cs" />
     <Compile Include="Classes\Produto.cs" />
     <Compile Include="Classes\DB.cs" />
