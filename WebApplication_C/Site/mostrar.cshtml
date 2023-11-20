@@ -5,20 +5,20 @@
 @{
     Layout = null;
 
-    //Criar um objeto pessoa
+    //Criar um objeto Usuario
     Usuario usuario = new Usuario();
 
-    //Buscar os dados do formulario pelo método POST e inserir no objeto cliente
+    //Buscar os dados do formulario pelo método POST e inserir no objeto Usuario
     usuario.CPF = long.Parse(Request.Form["CPF"]);
     usuario.Senha = Request.Form["senha"];
+    usuario.Nome = Request.Form["nome"];
+    usuario.Email = Request.Form["email"];
 
-    //inserir o usuário no banco de dadoss
+    //inserir o usuário no banco de dados
     DB.Insert_Usuario(usuario);
 
     //Buscar um usuário do banco de dados
-    Usuario Encontrado = DB.Busca_Usuario(long.Parse(usuario.CPF + ""));
-
-
+    Usuario Encontrado = DB.Busca_Usuario(usuario.CPF);
 }
 
 <!DOCTYPE html>
@@ -32,9 +32,10 @@
 <body>
     <div>
         <!--Sempre que precisar inserir códigos C# no meio do HTML é só inserir um "ARROBA"-->
-        <h1>Bem vindo @Encontrado.CPF ! </h1>
+        <h1>Bem vindo @Encontrado.Nome ! </h1>
+        <p>Seu e-mail local de cadastro é: @usuario.Email.</p>
         <p>Seu e-mail de cadastro é: @Encontrado.Email.</p>
-        <p>Seu CEP é @Encontrado.CEP .</p>
+        <p>Seu CPF é @Encontrado.CPF .</p>
         <br>
         <p><a href="~/Site/index.cshtml">Pagina Inicial</a> - <a href="~/Site/cadastro.cshtml">Novo Cadastro</a></p>
     </div>

@@ -22,7 +22,9 @@ namespace WebApplication_C.Classes
             Initialize();
         }
 
-        //Initialize values
+        /// <summary>
+        /// Initializar as configurações de conexão com o banco de dados
+        /// </summary>
         private static void Initialize()
         {
             //server = "localhost";
@@ -50,7 +52,10 @@ namespace WebApplication_C.Classes
             }
         }
 
-        //open connection to database
+        /// <summary>
+        /// Abrir a conexão com o banco de dados
+        /// </summary>
+        /// <returns></returns>
         private static bool OpenConnection()
         {
             try
@@ -80,7 +85,10 @@ namespace WebApplication_C.Classes
 
         }
 
-        //Close connection
+        /// <summary>
+        /// Fechar a conexão com o Banco de dados
+        /// </summary>
+        /// <returns></returns>
         private static bool CloseConnection()
         {
             try
@@ -96,7 +104,10 @@ namespace WebApplication_C.Classes
         }
 
 
-        //Inserir Usuario no BD
+        /// <summary>
+        /// Inserir um Usuario no Banco de dados.
+        /// </summary>
+        /// <param name="Usuario"></param>
         public static void Insert_Usuario(Usuario Usuario)
         {
             string query = "INSERT INTO Usuarios (cpf,nome,sobrenome,senha,email,genero,enderecoRua,cep,telefone,admin,enderecoNumero,enderecoComplemento) VALUES('" + Usuario.CPF + "','" + Usuario.Nome + "','" + Usuario.Sobrenome + "','" + Usuario.Senha + "','" + Usuario.Email + "','" + Usuario.Genero + "','" + Usuario.EnderecoRua + "','" + Usuario.CEP + "','" + Usuario.Telefone + "','" + Usuario.Admin + "','" + Usuario.EnderecoNumero + "','" + Usuario.EnderecoComplemento + "')";
@@ -115,8 +126,12 @@ namespace WebApplication_C.Classes
             }
         }
 
-        //Atualizar o Nome de uma Usuario atravéz do cpf
-        public static void Update_Nome(string nome, string cpf)
+        /// <summary>
+        /// Atualizar o Nome de um Usuário atravéz do cpf
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <param name="cpf"></param>
+        public static void Update_Nome(string nome, long cpf)
         {
             string query = "UPDATE Usuarios SET nome='" + nome + "' WHERE cpf='" + cpf + "'";
 
@@ -138,8 +153,11 @@ namespace WebApplication_C.Classes
             }
         }
 
-        //Deletar uma Usuario
-        public static void Delete(string cpf)
+        /// <summary>
+        /// Excluir um Usuário do Banco de Dados
+        /// </summary>
+        /// <param name="cpf"></param>
+        public static void Delete(long cpf)
         {
             string query = "DELETE FROM Usuarios WHERE cpf='" + cpf + "'";
 
@@ -151,7 +169,10 @@ namespace WebApplication_C.Classes
             }
         }
 
-        //Retorna os dados de todas as Usuarios do DB em uma Lista
+        /// <summary>
+        /// Retorna os dados de todos os Usuarios do DB em uma Lista
+        /// </summary>
+        /// <returns></returns>
         public static List<Usuario> Lista_Usuarios()
         {
             string query = "SELECT * FROM Usuarios";
@@ -191,7 +212,11 @@ namespace WebApplication_C.Classes
             }
         }
 
-        //Retorna os dados de uma Usuario do DB
+        /// <summary>
+        /// Retorna os dados de um Usuário do Banco de Dados
+        /// </summary>
+        /// <param name="cpf"></param>
+        /// <returns>Usuario</returns>
         public static Usuario Busca_Usuario(long cpf)
         {
             string query = "SELECT * FROM Usuarios WHERE cpf = '" + cpf + "'";
@@ -238,7 +263,10 @@ namespace WebApplication_C.Classes
             }
         }
 
-        //Conta quantas Usuarios estão cadastradas no DB
+        /// <summary>
+        /// Conta quantos Usuários estão cadastradas no Banco de dados
+        /// </summary>
+        /// <returns>Int</returns>
         public static int Count_Usuario()
         {
             string query = "SELECT Count(*) FROM Usuarios";
@@ -263,7 +291,12 @@ namespace WebApplication_C.Classes
                 return Count;
             }
         }
-        //Buscar CPF de Usuario
+
+        /// <summary>
+        /// Buscar o CPF de um Usuário a partir do nome
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <returns>string</returns>
         public static string Get_CPF_Usuario(string nome)
         {
             string query = "SELECT cpf FROM Usuarios " +
@@ -289,6 +322,5 @@ namespace WebApplication_C.Classes
                 return cpf_Usuario;
             }
         }
-
     }
 }
