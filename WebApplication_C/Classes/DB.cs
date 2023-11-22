@@ -28,7 +28,7 @@ namespace WebApplication_C.Classes
         private static void Initialize()
         {
             //server = "localhost";
-            server = "10.200.116.39";
+            server = "10.200.116.197";
             //database = "connectcsharptomysql";
             database = "loja-online";
             //uid = "username";
@@ -169,6 +169,49 @@ namespace WebApplication_C.Classes
                 CloseConnection();
             }
         }
+
+        /// <summary>
+        /// Retorna o Id(tipo long) do usuário que se autenticou
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="CPF"></param>
+        /// <param name="senha"></param>
+        public static long Login_Usuarios(string CPF, string senha)
+        {
+            string query = "SELECT cpf FROM Usuarios WHERE cpf='"+CPF+"' AND senha = '"+senha+"'";
+
+            //Cria a verificação de login
+            long login = 0;
+
+            //Open connection
+            if (OpenConnection() == true)
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                //Create a data reader and Execute the command
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    login = long.Parse(dataReader["cpf"] + "");
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                CloseConnection();
+
+                //return list to be displayed
+                return login;
+            }
+            else
+            {
+                return login;
+            }
+        }
+
 
         /// <summary>
         /// Retorna os dados de todos os Usuarios do DB em uma Lista
