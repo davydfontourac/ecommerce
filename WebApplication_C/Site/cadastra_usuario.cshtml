@@ -1,4 +1,5 @@
 ﻿<!--Importar as Classes que serão utilizadas-->
+@using System.Net
 @using WebApplication_C.Classes
 
 <!--Códgo C# inicial-->
@@ -13,6 +14,7 @@
     usuario.Senha = Request.Form["senha"];
     usuario.Nome = Request.Form["nome"];
     usuario.Email = Request.Form["email"];
+
 
     //inserir o usuário no banco de dados
     DB.Insert_Usuario(usuario);

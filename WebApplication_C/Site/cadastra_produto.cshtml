@@ -1,0 +1,55 @@
+﻿<!--Importar as Classes que serão utilizadas-->
+@using System.Net
+@using WebApplication_C.Classes
+
+<!--Códgo C# inicial-->
+@{
+    Layout = null;
+
+    //Criar um objeto Produto
+    Produto produto = new Produto();
+
+    //Buscar os dados do formulario pelo método POST e inserir no objeto produto
+    produto.Nome = Request.Form["nome"];
+    produto.Descricao = Request.Form["descricao"];
+    produto.Quantidade = int.Parse(Request.Form["quantidade"]);
+
+    HttpFileCollectionBase uploadedFiles = Request.Files;
+
+    for (int i = 0; i < uploadedFiles.Count; i++)
+    {
+        HttpPostedFileBase userPostedFile = uploadedFiles[i];
+
+        if (userPostedFile.ContentLength > 0)
+        {
+            // getting a valid server path to save
+            string filePath = System.IO.Path.Combine(Server.MapPath("img"), userPostedFile.FileName);
+            userPostedFile.SaveAs(filePath);
+            produto.Imagem = userPostedFile.FileName;
+
+        }
+    }
+
+    //inserir o produto no banco de dados
+    DB.Insert_Produto(produto);
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="~/CSS/style.css">
+    <title>Meu primeiro CSHTML</title>
+</head>
+<body>
+    <div>
+        <!--Sempre que precisar inserir códigos C# no meio do HTML é só inserir um "ARROBA"-->
+        <h1>O produto @produto.Nome foi cadastrado com sucesso! </h1>
+        <p>Sua imagem é :</p>
+        <div><img src="~/Site/img/@produto.Imagem" /></div>
+        <br>
+        <p><a href="~/Site/index.cshtml">Pagina Inicial</a> - <a href="~/Site/cadastro.cshtml">Novo Cadastro</a></p>
+    </div>
+</body>
+</html>

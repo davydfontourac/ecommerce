@@ -140,8 +140,10 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Site\index.cshtml" />
-    <Content Include="Site\mostrar.cshtml" />
-    <Content Include="Site\cadastro.cshtml" />
+    <Content Include="Site\cadastra_usuario.cshtml" />
+    <Content Include="Site\formulario_cadastro_usuario.cshtml" />
+    <Content Include="Site\formulario_cadastro_produto .cshtml" />
+    <Content Include="Site\cadastra_produto.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -149,7 +151,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Site\img\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="CSS\style.css" />
   </ItemGroup>

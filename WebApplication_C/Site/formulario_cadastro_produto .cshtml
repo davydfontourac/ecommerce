@@ -1,0 +1,31 @@
+﻿<!--Importar as Classes que serão utilizadas-->
+
+
+<!--Criando a conexção com o Banco de Dados-->
+@{
+    Layout = null;
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="~/CSS/style.css">
+    <title>Meu primeiro CSHTML</title>
+</head>
+<body>
+    <div>
+        <!-- O item enctype="multipart/form-data" é o que permite o envio de arquivos atraves do metodo POST -->
+        <form method="post" action="~/Site/cadastra_produto.cshtml" enctype="multipart/form-data">
+                <h1>Cadastro de Produto:</h1>
+                <p>Nome: <input type="text" name="nome" required></p>
+                <p>Descriçao: <input type="password" name="descricao" required></p>
+                <p>Quantidade: <input type="text" name="quantidade"></p>
+                <p>Foto: <input type="file" name="foto" accept=".jpg" ></p>
+                <input type="submit" value="Enviar">
+            </form>
+</div>
+</body>
+</html>

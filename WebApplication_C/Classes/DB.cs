@@ -28,7 +28,7 @@ namespace WebApplication_C.Classes
         private static void Initialize()
         {
             //server = "localhost";
-            server = "10.200.116.197";
+            server = "10.200.116.39";
             //database = "connectcsharptomysql";
             database = "loja-online";
             //uid = "username";
@@ -104,13 +104,15 @@ namespace WebApplication_C.Classes
         }
 
 
+        //Metodos SCRUD para a tabela Usuarios
+
         /// <summary>
         /// Inserir um Usuario no Banco de dados.
         /// </summary>
-        /// <param name="Usuario"></param>
-        public static void Insert_Usuario(Usuario Usuario)
+        /// <param name="usuario"></param>
+        public static void Insert_Usuario(Usuario usuario)
         {
-            string query = "INSERT INTO Usuarios (cpf,nome,sobrenome,senha,email,genero,enderecoRua,cep,telefone,admin,enderecoNumero,enderecoComplemento) VALUES('" + Usuario.CPF + "','" + Usuario.Nome + "','" + Usuario.Sobrenome + "','" + Usuario.Senha + "','" + Usuario.Email + "','" + Usuario.Genero + "','" + Usuario.EnderecoRua + "','" + Usuario.CEP + "','" + Usuario.Telefone + "','" + Usuario.Admin + "','" + Usuario.EnderecoNumero + "','" + Usuario.EnderecoComplemento + "')";
+            string query = "INSERT INTO Usuarios (cpf,nome,sobrenome,senha,email,genero,enderecoRua,cep,telefone,admin,enderecoNumero,enderecoComplemento) VALUES('" + usuario.CPF + "','" + usuario.Nome + "','" + usuario.Sobrenome + "','" + usuario.Senha + "','" + usuario.Email + "','" + usuario.Genero + "','" + usuario.EnderecoRua + "','" + usuario.CEP + "','" + usuario.Telefone + "','" + usuario.Admin + "','" + usuario.EnderecoNumero + "','" + usuario.EnderecoComplemento + "')";
 
             //open connection
             if (OpenConnection() == true)
@@ -127,13 +129,12 @@ namespace WebApplication_C.Classes
         }
 
         /// <summary>
-        /// Atualizar o Nome de um Usuário atravéz do cpf
+        /// Atualizar os dados de um Usuário no banco de dados
         /// </summary>
-        /// <param name="nome"></param>
-        /// <param name="cpf"></param>
-        public static void Update_Nome(string nome, long cpf)
+        /// <param name="usuario" ></param>
+        public static void Update_usuário(Usuario usuario)
         {
-            string query = "UPDATE Usuarios SET nome='" + nome + "' WHERE cpf='" + cpf + "'";
+            string query = "UPDATE Usuarios SET  nome = '" + usuario.Nome + "',sobrenome = '" + usuario.Sobrenome + "',senha = '" + usuario.Senha + "','" + usuario.Email + "',genero = '" + usuario.Genero + "', enderecoRua = '" + usuario.EnderecoRua + "', cep = '" + usuario.CEP + "', telefone = '" + usuario.Telefone + "', admin = '" + usuario.Admin + "', enderecoNumero = '" + usuario.EnderecoNumero + "', enderecoComplemento = '" + usuario.EnderecoComplemento + "' WHERE cpf='" + usuario.CPF + "'";
 
             //Open connection
             if (OpenConnection() == true)
@@ -157,7 +158,7 @@ namespace WebApplication_C.Classes
         /// Excluir um Usuário do Banco de Dados
         /// </summary>
         /// <param name="cpf"></param>
-        public static void Delete(long cpf)
+        public static void DeleteUsuario(long cpf)
         {
             string query = "DELETE FROM Usuarios WHERE cpf='" + cpf + "'";
 
@@ -322,5 +323,218 @@ namespace WebApplication_C.Classes
                 return cpf_Usuario;
             }
         }
+
+
+        //Metodos SCRUD para a tabela Produtos
+
+        /// <summary>
+        /// Inserir um Produto no Banco de dados.
+        /// </summary>
+        /// <param name="produto"></param>
+        public static void Insert_Produto(Produto produto)
+        {
+            string query = "INSERT INTO Produtos (quantidade,categoria,nome,descricao,valor,peso,largura,altura,profundidade,imagem) VALUES('" + produto.Quantidade + "','" + produto.Categoria + "','" + produto.Nome + "','" + produto.Descricao + "','" + produto.Valor + "','" + produto.Peso + "','" + produto.Largura + "','" + produto.Altura + "','" + produto.Profundidade + "','" + produto.Imagem + "')";
+
+            //open connection
+            if (OpenConnection() == true)
+            {
+                //create command and assign the query and connection from the constructor
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                //Execute command
+                cmd.ExecuteNonQuery();
+
+                //close connection
+                CloseConnection();
+            }
+        }
+
+        /// <summary>
+        /// Atualizar os dados do produto no Banco de dados
+        /// </summary>
+        /// <param name="produto"></param>
+        public static void Update_Produto(Produto produto)
+        {
+            string query = "UPDATE Produtos SET  quantidade = '" + produto.Quantidade + "', categoria = '" + produto.Categoria + "', nome = '" + produto.Nome + "', descricao = '" + produto.Descricao + "', valor = '" + produto.Valor + "', peso = '" + produto.Peso + "', largura = '" + produto.Largura + "', altura = '" + produto.Altura + "', profundidade = '" + produto.Profundidade + "', imagem = '" + produto.Imagem + "' WHERE id='" + produto.Id + "'";
+
+            //Open connection
+            if (OpenConnection() == true)
+            {
+                //create mysql command
+                MySqlCommand cmd = new MySqlCommand();
+                //Assign the query using CommandText
+                cmd.CommandText = query;
+                //Assign the connection using Connection
+                cmd.Connection = conn;
+
+                //Execute query
+                cmd.ExecuteNonQuery();
+
+                //close connection
+                CloseConnection();
+            }
+        }
+
+        /// <summary>
+        /// Atualiza a imagem de um produto no banco de dados
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="imagem"></param>
+        public static void Update_Produto_Imagem(int id, string imagem)
+        {
+            string query = "UPDATE Produtos SET imagem = '" + imagem + "' WHERE id='" + id + "'";
+
+            //Open connection
+            if (OpenConnection() == true)
+            {
+                //create mysql command
+                MySqlCommand cmd = new MySqlCommand();
+                //Assign the query using CommandText
+                cmd.CommandText = query;
+                //Assign the connection using Connection
+                cmd.Connection = conn;
+
+                //Execute query
+                cmd.ExecuteNonQuery();
+
+                //close connection
+                CloseConnection();
+            }
+        }
+
+        /// <summary>
+        /// Excluir um Produto do Banco de Dados
+        /// </summary>
+        /// <param name="cpf"></param>
+        public static void DeleteProduto(int id)
+        {
+            string query = "DELETE FROM Produtos WHERE id='" + id + "'";
+
+            if (OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                CloseConnection();
+            }
+        }
+
+        /// <summary>
+        /// Retorna os dados de todos os produtos do DB em uma Lista
+        /// </summary>
+        /// <returns></returns>
+        public static List<Produto> Lista_Produtos()
+        {
+            string query = "SELECT * FROM produtos";
+
+            //Create a list to store the result
+            List<Produto> produtos = new List<Produto>();
+
+            //Open connection
+            if (OpenConnection() == true)
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                //Create a data reader and Execute the command
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    Produto produto = new Produto(dataReader["Nome"] + "", int.Parse(dataReader["Quantidade"]+""), int.Parse(dataReader["Categoria"]+""), dataReader["Descricao"]+"", dataReader["Imagem"] + "", float.Parse(dataReader["Valor"]+""), float.Parse(dataReader["Peso"]+""), float.Parse(dataReader["Largura"]+""), float.Parse(dataReader["Altura"]+""), float.Parse(dataReader["Profundidade"]+""));
+                    produtos.Add(produto);
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                CloseConnection();
+
+                //return list to be displayed
+                return produtos;
+            }
+            else
+            {
+                return produtos;
+            }
+        }
+
+        /// <summary>
+        /// Retorna os dados de um produto do Banco de Dados
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Usuario</returns>
+        public static Produto Busca_Produto(int id)
+        {
+            string query = "SELECT * FROM Produtos WHERE id = '" + id + "'";
+            Produto produto = new Produto();
+            //Open connection
+            if (OpenConnection() == true)
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                //Create a data reader and Execute the command
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    produto.Id = int.Parse(dataReader["id"] + "");
+                    produto.Quantidade = int.Parse(dataReader["quantidade"] + "");
+                    produto.Categoria = int.Parse(dataReader["categoria"] + "");
+                    produto.Nome = dataReader["nome"] + "";
+                    produto.Descricao = dataReader["descricao"] + "";
+                    produto.Valor = float.Parse(dataReader["valor"] + "");
+                    produto.Peso = float.Parse(dataReader["peso"] + "");
+                    produto.Largura = float.Parse(dataReader["largura"] + "");
+                    produto.Altura = float.Parse(dataReader["altura"] + "");
+                    produto.Profundidade = long.Parse(dataReader["profundidade"] + "");
+                    produto.Imagem = dataReader["imagem"] + "";
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                CloseConnection();
+
+                //return list to be displayed
+                return produto;
+            }
+            else
+            {
+                return produto;
+            }
+        }
+
+        /// <summary>
+        /// Conta quantos produtos estão cadastradas no Banco de dados
+        /// </summary>
+        /// <returns>Int</returns>
+        public static int Count_Produtos()
+        {
+            string query = "SELECT Count(*) FROM Produtos";
+            int Count = -1;
+
+            //Open Connection
+            if (OpenConnection() == true)
+            {
+                //Create Mysql Command
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                //ExecuteScalar will return one value
+                Count = int.Parse(cmd.ExecuteScalar() + "");
+
+                //close Connection
+                CloseConnection();
+
+                return Count;
+            }
+            else
+            {
+                return Count;
+            }
+        }
+
     }
 }
