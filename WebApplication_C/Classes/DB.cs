@@ -171,7 +171,7 @@ namespace WebApplication_C.Classes
         }
 
         /// <summary>
-        /// Retorna o Id(tipo long) do usuário que se autenticou
+        /// Retorna o Id(tipo long) do usuário que se autenticou (Retorna "0" para erro de login)
         /// </summary>
         /// <returns></returns>
         /// <param name="CPF"></param>
