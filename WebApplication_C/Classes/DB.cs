@@ -174,8 +174,8 @@ namespace WebApplication_C.Classes
         /// Retorna o Id(tipo long) do usuário que se autenticou (Retorna "0" para erro de login)
         /// </summary>
         /// <returns></returns>
-        /// <param name="CPF"></param>
-        /// <param name="senha"></param>
+        /// <param name="CPF">Identificação do usuário</param>
+        /// <param name="senha">Senha do usuário</param>
         public static long Login_Usuarios(string CPF, string senha)
         {
             string query = "SELECT cpf FROM Usuarios WHERE cpf='"+CPF+"' AND senha = '"+senha+"'";
@@ -507,7 +507,7 @@ namespace WebApplication_C.Classes
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Usuario</returns>
-        public static Produto Busca_Produto(int id)
+        public static Produto Busca_Produto_por_id(int id)
         {
             string query = "SELECT * FROM Produtos WHERE id = '" + id + "'";
             Produto produto = new Produto();
@@ -547,6 +547,45 @@ namespace WebApplication_C.Classes
             else
             {
                 return produto;
+            }
+        }
+
+        /// <summary>
+        /// Retorna os dados dos produtos que contenham a "busca" no nome
+        /// </summary>
+        /// <param name="busca"></param>
+        /// <returns>List</Usuario></returns>
+        public static List<Produto> Busca_Produto_por_Nome(String busca)
+        {
+            string query = "SELECT * FROM Produtos WHERE nome LIKE '%" + busca + "'";
+            List<Produto> produtos = new List<Produto>();
+            //Open connection
+            if (OpenConnection() == true)
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                //Create a data reader and Execute the command
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    Produto produto = new Produto(int.Parse(dataReader["id"] + ""), dataReader["nome"] + "", int.Parse(dataReader["quantidade"] + ""), int.Parse(dataReader["categoria"] + ""), dataReader["descricao"] + "", dataReader["imagem"] + "", float.Parse(dataReader["valor"] + ""),float.Parse(dataReader["peso"] + ""), float.Parse(dataReader["largura"] + ""), float.Parse(dataReader["altura"] + ""), long.Parse(dataReader["profundidade"] + ""));
+                    produtos.Add(produto);
+                }
+                
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                CloseConnection();
+
+                //return list to be displayed
+                return produtos;
+            }
+            else
+            {
+                return produtos;
             }
         }
 

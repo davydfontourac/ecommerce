@@ -20,6 +20,22 @@ namespace WebApplication_C.Classes
 
         public Produto(string Nome, int Quantidade, int Categoria, string Descricao, string Imagem, float Valor, float Peso, float Largura, float Altura, float Profundidade)
         {
+            this.Id = 0;
+            this.Nome = Nome;
+            this.Quantidade = Quantidade;
+            this.Categoria = Categoria;
+            this.Descricao = Descricao;
+            this.Imagem = Imagem;
+            this.Valor = Valor;
+            this.Peso = Peso;
+            this.Altura = Altura;
+            this.Largura = Largura;
+            this.Profundidade = Profundidade;
+        }
+
+        public Produto(int Id, string Nome, int Quantidade, int Categoria, string Descricao, string Imagem, float Valor, float Peso, float Largura, float Altura, float Profundidade)
+        {
+            this.Id = Id;
             this.Nome = Nome;
             this.Quantidade = Quantidade;
             this.Categoria = Categoria;
@@ -34,6 +50,7 @@ namespace WebApplication_C.Classes
 
         public Produto(string Nome, int Quantidade, int Categoria, float Valor)
         {
+            this.Id = 0;
             this.Nome = Nome;
             this.Quantidade = Quantidade;
             this.Categoria = Categoria;
@@ -48,6 +65,7 @@ namespace WebApplication_C.Classes
 
         public Produto()
         {
+            this.Id = 0;
             this.Nome = "";
             this.Quantidade = 0;
             this.Categoria = 0;
