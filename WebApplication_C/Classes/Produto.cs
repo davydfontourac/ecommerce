@@ -4,6 +4,9 @@ using System.Runtime.InteropServices;
 
 namespace WebApplication_C.Classes
 {
+    /// <summary>
+    /// Classe com todos os métodos dos produtos do sistema
+    /// </summary>
     public class Produto
     {
         public int Id { get; set; }
@@ -18,6 +21,19 @@ namespace WebApplication_C.Classes
         public float Altura { get; set; }
         public float Profundidade { get; set; }
 
+        /// <summary>
+        /// Construtor completo de produtos
+        /// </summary>
+        /// <param name="Nome"></param>
+        /// <param name="Quantidade"></param>
+        /// <param name="Categoria"></param>
+        /// <param name="Descricao"></param>
+        /// <param name="Imagem"></param>
+        /// <param name="Valor"></param>
+        /// <param name="Peso"></param>
+        /// <param name="Largura"></param>
+        /// <param name="Altura"></param>
+        /// <param name="Profundidade"></param>
         public Produto(string Nome, int Quantidade, int Categoria, string Descricao, string Imagem, float Valor, float Peso, float Largura, float Altura, float Profundidade)
         {
             this.Id = 0;
@@ -32,7 +48,20 @@ namespace WebApplication_C.Classes
             this.Largura = Largura;
             this.Profundidade = Profundidade;
         }
-
+        /// <summary>
+        /// Construtor Completo com ID de produtos
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <param name="Nome"></param>
+        /// <param name="Quantidade"></param>
+        /// <param name="Categoria"></param>
+        /// <param name="Descricao"></param>
+        /// <param name="Imagem"></param>
+        /// <param name="Valor"></param>
+        /// <param name="Peso"></param>
+        /// <param name="Largura"></param>
+        /// <param name="Altura"></param>
+        /// <param name="Profundidade"></param>
         public Produto(int Id, string Nome, int Quantidade, int Categoria, string Descricao, string Imagem, float Valor, float Peso, float Largura, float Altura, float Profundidade)
         {
             this.Id = Id;
@@ -48,6 +77,13 @@ namespace WebApplication_C.Classes
             this.Profundidade = Profundidade;
         }
 
+        /// <summary>
+        /// Construtor básico de produto
+        /// </summary>
+        /// <param name="Nome"></param>
+        /// <param name="Quantidade"></param>
+        /// <param name="Categoria"></param>
+        /// <param name="Valor"></param>
         public Produto(string Nome, int Quantidade, int Categoria, float Valor)
         {
             this.Id = 0;
@@ -63,6 +99,9 @@ namespace WebApplication_C.Classes
             this.Profundidade = 0;
         }
 
+        /// <summary>
+        /// Construtor sem parâmetros
+        /// </summary>
         public Produto()
         {
             this.Id = 0;

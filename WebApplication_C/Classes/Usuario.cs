@@ -3,6 +3,9 @@ using System;
 
 namespace WebApplication_C.Classes
 {
+    /// <summary>
+    /// Classe com todos os métodos referentes aos usuários do sistema
+    /// </summary>
     public class Usuario
     {
         public string Nome { get; set; }
@@ -18,6 +21,21 @@ namespace WebApplication_C.Classes
         public long Telefone { get; set; }
         public Boolean Admin { get; set; }
 
+        /// <summary>
+        /// Construtor completo de usuário
+        /// </summary>
+        /// <param name="CPF"></param>
+        /// <param name="Nome"></param>
+        /// <param name="Sobrenome"></param>
+        /// <param name="Senha"></param>
+        /// <param name="Email"></param>
+        /// <param name="Genero"></param>
+        /// <param name="EnderecoRua"></param>
+        /// <param name="EnderecoNumero"></param>
+        /// <param name="EnderecoComplemento"></param>
+        /// <param name="CEP"></param>
+        /// <param name="Telefone"></param>
+        /// <param name="Admin"></param>
         public Usuario(long CPF, string Nome, string Sobrenome, string Senha, string Email, string Genero, string EnderecoRua, int EnderecoNumero, string EnderecoComplemento, long CEP, long Telefone, Boolean Admin)
         {
             this.CPF = CPF;
@@ -33,7 +51,11 @@ namespace WebApplication_C.Classes
             this.EnderecoNumero = EnderecoNumero;
             this.EnderecoComplemento = EnderecoComplemento;
         }
-
+        /// <summary>
+        /// Construtor básico de usuário
+        /// </summary>
+        /// <param name="CPF"></param>
+        /// <param name="Senha"></param>
         public Usuario(long CPF, string Senha)
         {
             this.CPF = CPF;
@@ -49,7 +71,9 @@ namespace WebApplication_C.Classes
             this.EnderecoNumero = 0;
             this.EnderecoComplemento = "";
         }
-
+        /// <summary>
+        /// Construtor sem parâmetros
+        /// </summary>
         public Usuario()
         {
             this.CPF = 0;
