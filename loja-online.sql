@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 22-Nov-2023 às 02:32
+-- Tempo de geração: 27/11/2023 às 21:32
 -- Versão do servidor: 10.4.28-MariaDB
--- versão do PHP: 8.2.4
+-- Versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `produtos`
+-- Estrutura para tabela `carrinho`
+--
+
+CREATE TABLE `carrinho` (
+  `id_usuario` bigint(11) NOT NULL,
+  `id_produto` int(11) NOT NULL,
+  `data` timestamp NOT NULL DEFAULT current_timestamp(),
+  `Comprou` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `produtos`
 --
 
 CREATE TABLE `produtos` (
@@ -41,18 +54,10 @@ CREATE TABLE `produtos` (
   `imagem` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Extraindo dados da tabela `produtos`
---
-
-INSERT INTO `produtos` (`id`, `quantidade`, `categoria`, `nome`, `descricao`, `valor`, `peso`, `largura`, `altura`, `profundidade`, `imagem`) VALUES
-(1, NULL, NULL, '', NULL, 0, NULL, NULL, NULL, NULL, ''),
-(2, 4, 0, 'casa', 'casa', 0, 0, 0, 0, 0, '111.jpg');
-
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `usuarios`
+-- Estrutura para tabela `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -71,40 +76,48 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `usuarios`
---
-
-INSERT INTO `usuarios` (`cpf`, `nome`, `sobrenome`, `senha`, `email`, `genero`, `enderecoRua`, `cep`, `telefone`, `admin`, `enderecoNumero`, `enderecoComplemento`) VALUES
-(222, '222', '', '222', '123@123.123', '', '', 0, 0, 0, 0, ''),
-(333, '333', '', '333', '123@123.123', '', '', 0, 0, 0, 0, ''),
-(444, '444', '', '444', '123@123.123', '', '', 0, 0, 0, 0, ''),
-(123456, 'Mauricio', '', '123456', 'mauricio@senai.com', '', '', 0, 0, 0, 0, '');
-
---
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices para tabela `produtos`
+-- Índices de tabela `carrinho`
+--
+ALTER TABLE `carrinho`
+  ADD KEY `id_produto` (`id_produto`),
+  ADD KEY `id_user` (`id_usuario`);
+
+--
+-- Índices de tabela `produtos`
 --
 ALTER TABLE `produtos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `usuarios`
+-- Índices de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`cpf`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- Restrições para tabelas despejadas
+--
+
+--
+-- Restrições para tabelas `carrinho`
+--
+ALTER TABLE `carrinho`
+  ADD CONSTRAINT `carrinho_ibfk_1` FOREIGN KEY (`id_produto`) REFERENCES `produtos` (`id`),
+  ADD CONSTRAINT `carrinho_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`cpf`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
