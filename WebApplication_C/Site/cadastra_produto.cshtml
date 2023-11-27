@@ -12,6 +12,7 @@
     //Buscar os dados do formulario pelo método POST e inserir no objeto produto
     produto.Nome = Request.Form["nome"];
     produto.Descricao = Request.Form["descricao"];
+    produto.Valor = float.Parse(Request.Form["valor"]);
     produto.Quantidade = int.Parse(Request.Form["quantidade"]);
 
     HttpFileCollectionBase uploadedFiles = Request.Files;
@@ -47,20 +48,22 @@
         <!--Sempre que precisar inserir códigos C# no meio do HTML é só inserir um "ARROBA"-->
         <h1>O produto @produto.Nome foi cadastrado com sucesso! </h1>
         <p>Sua imagem é :</p>
-        <div><img src="~/Site/img/@produto.Imagem" width="100px" height="100px"/></div>
+        <div><img src="~/Site/img/@produto.Imagem" width="100px" height="100px" /></div>
+        <p>Seu valor é: @produto.Valor</p>
         <br>
-        <p>Os pridutos já cadastrados</p>
-        @{ 
+        <p>Os produtos já cadastrados são:</p>
+        @{
             List<Produto> produtos = DB.Lista_Produtos();
         }
         @foreach (Produto produto_lista in produtos)
         {
-                <div>
-                    <p>Produto: @produto_lista.Nome</p>
-                    <p>Descrição: @produto_lista.Descricao</p>
-                    <img src="~/Site/img/@produto_lista.Imagem" width="100px" height="100px" />
-                </div>
-            }
+            <div>
+                <p>Produto: @produto_lista.Nome</p>
+                <p>Descrição: @produto_lista.Descricao</p>
+                <p>Valor: @produto_lista.Valor</p>
+                <img src="~/Site/img/@produto_lista.Imagem" width="100px" height="100px" />
+            </div>
+        }
 
         <p><a href="~/Site/index.cshtml">Pagina Inicial</a> - <a href="~/Site/formulario_cadastro_produto .cshtml">Novo Cadastro</a></p>
     </div>

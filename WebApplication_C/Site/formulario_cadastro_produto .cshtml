@@ -1,5 +1,5 @@
 ﻿<!--Importar as Classes que serão utilizadas-->
-
+@using WebApplication_C.Classes
 
 <!--Criando a conexção com o Banco de Dados-->
 @{
@@ -19,13 +19,23 @@
     <div>
         <!-- O item enctype="multipart/form-data" é o que permite o envio de arquivos atraves do metodo POST -->
         <form method="post" action="~/Site/cadastra_produto.cshtml" enctype="multipart/form-data">
-                <h1>Cadastro de Produto:</h1>
-                <p>Nome: <input type="text" name="nome" required></p>
-                <p>Descriçao: <input type="text" name="descricao" required></p>
-                <p>Quantidade: <input type="number" name="quantidade"></p>
-                <p>Foto: <input type="file" name="foto" accept=".jpg" ></p>
-                <input type="submit" value="Enviar">
-            </form>
-</div>
+            <h1>Cadastro de Produto:</h1>
+            <p>Nome: <input type="text" name="nome" required></p>
+            <p>Descriçao: <input type="text" name="descricao" required></p>
+            <p>Quantidade: <input type="number" name="quantidade"></p>
+            <p>Valor: <input type="text" name="valor"></p>
+            <p>Foto: <input type="file" name="foto" accept=".jpg"></p>
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+    <div>
+        <div onclick="InsereCarrinho()">Colocar um produto na lista de compras</div>
+    </div>
+    <script type="text/javascript">
+        function InsereCarrinho(){
+            @{
+                DB.Insert_carrinho(long.Parse("123"), int.Parse("4"));
+            }
+    </script>
 </body>
 </html>

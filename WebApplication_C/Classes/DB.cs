@@ -4,6 +4,8 @@ using System;
 using WebApplication_C.Classes;
 using System.Runtime.ConstrainedExecution;
 using System.Web.Helpers;
+using Google.Protobuf.WellKnownTypes;
+using System.Globalization;
 
 namespace WebApplication_C.Classes
 {
@@ -376,7 +378,7 @@ namespace WebApplication_C.Classes
         /// <param name="produto"></param>
         public static void Insert_Produto(Produto produto)
         {
-            string query = "INSERT INTO Produtos (quantidade,categoria,nome,descricao,valor,peso,largura,altura,profundidade,imagem) VALUES('" + produto.Quantidade + "','" + produto.Categoria + "','" + produto.Nome + "','" + produto.Descricao + "','" + produto.Valor + "','" + produto.Peso + "','" + produto.Largura + "','" + produto.Altura + "','" + produto.Profundidade + "','" + produto.Imagem + "')";
+            string query = "INSERT INTO Produtos (quantidade,categoria,nome,descricao,valor,peso,largura,altura,profundidade,imagem) VALUES('" + produto.Quantidade + "','" + produto.Categoria + "','" + produto.Nome + "','" + produto.Descricao + "','" + produto.Valor.ToString().Replace(",",".") + "','" + produto.Peso + "','" + produto.Largura + "','" + produto.Altura + "','" + produto.Profundidade + "','" + produto.Imagem + "')";
 
             //open connection
             if (OpenConnection() == true)
@@ -618,5 +620,64 @@ namespace WebApplication_C.Classes
             }
         }
 
+        //Metodos SCRUD para a tabela carrino
+
+        /// <summary>
+        /// Inserir um Produto no Banco de dados.
+        /// </summary>
+        /// <param name="produto"></param>
+        public static void Insert_carrinho(long id_usuario, int id_produto)
+        {
+            string query = "INSERT INTO carrinho (id_usuario,id_produto) VALUES('" + id_usuario + "','" + id_produto + "')";
+
+            //open connection
+            if (OpenConnection() == true)
+            {
+                //create command and assign the query and connection from the constructor
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                //Execute command
+                cmd.ExecuteNonQuery();
+
+                //close connection
+                CloseConnection();
+            }
+        }
+
+        public static Carrinho GetCarrinho(long id_usuario)
+        {
+            Carrinho carrinho = new Carrinho() { Id_usuario = id_usuario };
+
+            string query = "SELECT * FROM carrinho WHERE id_usuario ='" + id_usuario + "'";
+            //Open connection
+            if (OpenConnection() == true)
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                //Create a data reader and Execute the command
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    carrinho.Id_produto.Add(int.Parse(dataReader["id_produto"] + ""));
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                CloseConnection();
+
+                //return list to be displayed
+                return carrinho;
+            }
+            else
+            {
+                return carrinho;
+            }
+        }
+
     }
+
 }
