@@ -1,8 +1,1 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<package xmlns="http://schemas.microsoft.com/WindowsScriptHost">
-	<job>
-		<script language="VBScript">
-
-		</script>
-	</job>
-</package>
+﻿

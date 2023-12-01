@@ -30,7 +30,7 @@ namespace WebApplication_C.Classes
         public Carrinho()
         {
             this.Id_usuario = 0;
-            this.Id_produto = null;
+            this.Id_produto = new List<int>();
         }
     }
 }

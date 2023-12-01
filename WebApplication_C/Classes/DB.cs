@@ -485,7 +485,7 @@ namespace WebApplication_C.Classes
                 //Read the data and store them in the list
                 while (dataReader.Read())
                 {
-                    Produto produto = new Produto(dataReader["Nome"] + "", int.Parse(dataReader["Quantidade"]+""), int.Parse(dataReader["Categoria"]+""), dataReader["Descricao"]+"", dataReader["Imagem"] + "", float.Parse(dataReader["Valor"]+""), float.Parse(dataReader["Peso"]+""), float.Parse(dataReader["Largura"]+""), float.Parse(dataReader["Altura"]+""), float.Parse(dataReader["Profundidade"]+""));
+                    Produto produto = new Produto(int.Parse(dataReader["id"] + ""),dataReader["Nome"] + "", int.Parse(dataReader["Quantidade"]+""), int.Parse(dataReader["Categoria"]+""), dataReader["Descricao"]+"", dataReader["Imagem"] + "", float.Parse(dataReader["Valor"]+""), float.Parse(dataReader["Peso"]+""), float.Parse(dataReader["Largura"]+""), float.Parse(dataReader["Altura"]+""), float.Parse(dataReader["Profundidade"]+""));
                     produtos.Add(produto);
                 }
 
@@ -675,6 +675,23 @@ namespace WebApplication_C.Classes
             else
             {
                 return carrinho;
+            }
+        }
+
+        /// <summary>
+        /// Excluir um Produto do carrinho
+        /// </summary>
+        /// <param name="Id_Usuario"></param>
+        /// <param name="Id_Produto"></param>
+        public static void DeleteProdutoCarrinho(long Id_Usuario, int Id_Produto)
+        {
+            string query = "DELETE FROM carrinho WHERE id_usuario='" + Id_Usuario + "' AND id_produto='"+ Id_Produto +"'";
+
+            if (OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                CloseConnection();
             }
         }
 

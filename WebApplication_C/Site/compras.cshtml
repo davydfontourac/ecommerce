@@ -1,0 +1,63 @@
+﻿<!--Importar as Classes que serão utilizadas-->
+@using System.Net
+@using WebApplication_C.Classes
+
+<!--Códgo C# inicial-->
+@{
+    Layout = null;
+
+   
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="~/CSS/style.css">
+    <title>Compras</title>
+</head>
+<body>
+    <div>
+        <!--Sempre que precisar inserir códigos C# no meio do HTML é só inserir um "ARROBA"-->
+        <h1>Os produtos disponíveis em nosso site são: </h1>
+        
+        @{
+            List<Produto> produtos = DB.Lista_Produtos();
+        }
+
+
+            @foreach (Produto produto_lista in produtos)
+            {
+                <div>
+                    <form method="post" action="~/Site/carrinho.cshtml">
+                        <p>Produto: @produto_lista.Nome</p>
+                        <p>Descrição: @produto_lista.Descricao</p>
+                        <p>Valor: @produto_lista.Valor</p>
+                        <p>
+                            <input type="text" name="ProdutoID" value="@produto_lista.Id" />
+                            <!--Tem que alterar o codigo de usuário abaixo
+                                <input type="text" name="UsuarioID" value="1" hidden /> -->
+                            <label>Selecione o Id de Usuário:</label>
+                            <select name="UsuarioID">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                            </select>
+                            <input type="submit" value="Comprar">
+                        </p>
+                        <img src="~/Site/img/@produto_lista.Imagem" width="100px" height="100px" />
+                    </form>
+                </div>
+            }
+
+        
+        <p><a href="~/Site/index.cshtml">Pagina Inicial</a> - <a href="~/Site/formulario_cadastro_produto .cshtml">Novo Cadastro</a></p>
+    </div>
+</body>
+</html>

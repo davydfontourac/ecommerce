@@ -1,0 +1,101 @@
+﻿<!--Importar as Classes que serão utilizadas-->
+@using System.Net
+@using WebApplication_C.Classes
+
+<!--Códgo C# inicial-->
+@{
+    Layout = null;
+
+    if(!(Request.Form["ProdutoID"]+"").Equals("") && !(Request.Form["UsuarioID"] + "").Equals("")) {
+
+        //Buscar os dados do formulario pelo método POST e inserir no item no carrinho
+        int Id_produto = int.Parse(Request.Form["ProdutoID"]);
+        long Id_usuario = long.Parse(Request.Form["UsuarioID"]);
+
+
+
+        //inserir um produto no carrinho
+        DB.Insert_carrinho(Id_usuario, Id_produto);
+    }
+
+    //Criar um objeto Carrinho
+    Carrinho carrinho = new Carrinho();
+    //Buscar um usuário do banco de dados
+    carrinho = DB.GetCarrinho(1);   //Alterar para o ID do usuario logado
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="~/CSS/style.css">
+    <title>Carrinho de compras:</title>
+</head>
+<body>
+    <div>
+        <!--Sempre que precisar inserir códigos C# no meio do HTML é só inserir um "ARROBA"-->
+        <h1>Seu carrinho de compras: </h1>
+        <form>
+            <input type="hidden" id="idUser" name="idUser" value="1" />
+            <input type="hidden" id="idProd" name="idProd" value="1" />
+        </form>
+        @{
+            List<int> ID_Produtos = carrinho.Id_produto;
+        }
+        <div id="produtos">
+            @foreach (int id_produto in ID_Produtos)
+            {
+
+                Produto produto = new Produto();
+                produto = DB.Busca_Produto_por_id(id_produto);
+
+                <div>
+                    <p>Produto: @produto.Nome</p>
+                    <p>Descrição: @produto.Descricao</p>
+                    <p>Valor: @produto.Valor</p>
+                    <img src="~/Site/img/@produto.Imagem" width="100px" height="100px" />
+                    <p><div onclick="removeItemCarrinho(1, @produto.Id)">Remover Item</div></p>
+                </div>
+
+            }
+        </div>
+        <p><a href="~/Site/index.cshtml">Pagina Inicial</a> - <a href="~/Site/formulario_cadastro_usuario.cshtml">Novo Cadastro</a></p>
+    </div>
+
+    <script type="text/javascript">
+        function removeItemCarrinho(id_usuario, id_produto) {
+            document.getElementById("idUser").value = id_usuario;
+            document.getElementById("idProd").value = id_produto;
+            if (id_produto != "" && id_usuario != "") {
+            @{
+                DB.DeleteProdutoCarrinho(long.Parse(Request.Form["idUser"]), int.Parse(Request.Form["idProd"]));
+             }
+            }
+        }
+
+        function MostraProdutos() {
+            document.getElementById("produtos").innerHTML = "" +
+
+            @foreach (int id_produto in ID_Produtos)
+            {
+
+                Produto produto = new Produto();
+                produto = DB.Busca_Produto_por_id(id_produto);
+
+                <div>
+                    <p>Produto: @produto.Nome</p>
+                    <p>Descrição: @produto.Descricao</p>
+                    <p>Valor: @produto.Valor</p>
+                    <img src="~/Site/img/@produto.Imagem" width="100px" height="100px" />
+                    <p><div onclick="removeItemCarrinho(1, @produto.Id)">Remover Item</div></p>
+                </div>
+
+            }
+                + "";
+        }
+    </script>
+
+</body>
+</html>

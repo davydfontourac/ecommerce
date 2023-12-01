@@ -144,8 +144,10 @@
     <Content Include="Site\index.cshtml" />
     <Content Include="Site\cadastra_usuario.cshtml" />
     <Content Include="Site\formulario_cadastro_usuario.cshtml" />
-    <Content Include="Site\formulario_cadastro_produto .cshtml" />
+    <Content Include="Site\formulario_cadastro_produto.cshtml" />
     <Content Include="Site\cadastra_produto.cshtml" />
+    <Content Include="Site\compras.cshtml" />
+    <Content Include="Site\carrinho.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
