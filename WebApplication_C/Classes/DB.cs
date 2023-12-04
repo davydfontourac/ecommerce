@@ -623,9 +623,10 @@ namespace WebApplication_C.Classes
         //Metodos SCRUD para a tabela carrino
 
         /// <summary>
-        /// Inserir um Produto no Banco de dados.
+        /// Inserir um Produto no Carrinho de compras.
         /// </summary>
-        /// <param name="produto"></param>
+        /// <param name="id_usuario"></param>
+        /// <param name="id_produto"></param>
         public static void Insert_carrinho(long id_usuario, int id_produto)
         {
             string query = "INSERT INTO carrinho (id_usuario,id_produto) VALUES('" + id_usuario + "','" + id_produto + "')";
@@ -644,6 +645,10 @@ namespace WebApplication_C.Classes
             }
         }
 
+        /// <summary>
+        /// Retornar uma lista dos IDs de Produtos no Carrinho de compras de um usuário específico.
+        /// </summary>
+        /// <param name="id_usuario"></param>
         public static Carrinho GetCarrinho(long id_usuario)
         {
             Carrinho carrinho = new Carrinho() { Id_usuario = id_usuario };

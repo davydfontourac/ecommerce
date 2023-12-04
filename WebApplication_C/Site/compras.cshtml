@@ -21,43 +21,48 @@
     <div>
         <!--Sempre que precisar inserir códigos C# no meio do HTML é só inserir um "ARROBA"-->
         <h1>Os produtos disponíveis em nosso site são: </h1>
-        
+
         @{
             List<Produto> produtos = DB.Lista_Produtos();
         }
 
 
-            @foreach (Produto produto_lista in produtos)
-            {
-                <div>
-                    <form method="post" action="~/Site/carrinho.cshtml">
-                        <p>Produto: @produto_lista.Nome</p>
-                        <p>Descrição: @produto_lista.Descricao</p>
-                        <p>Valor: @produto_lista.Valor</p>
-                        <p>
-                            <input type="text" name="ProdutoID" value="@produto_lista.Id" />
-                            <!--Tem que alterar o codigo de usuário abaixo
-                                <input type="text" name="UsuarioID" value="1" hidden /> -->
-                            <label>Selecione o Id de Usuário:</label>
-                            <select name="UsuarioID">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                            </select>
-                            <input type="submit" value="Comprar">
-                        </p>
-                        <img src="~/Site/img/@produto_lista.Imagem" width="100" height="100" />
-                    </form>
-                </div>
-            }
+        @foreach (Produto produto_lista in produtos)
+        {
+            <div>
+                <form method="post" action="~/Site/carrinho.cshtml">
+                    <p>Produto: @produto_lista.Nome</p>
+                    <p>Descrição: @produto_lista.Descricao</p>
+                    <p>Valor: @produto_lista.Valor</p>
+                    <p>
+                        <label>Id do Produto: </label>
+                        <input type="text" name="ProdutoID" value="@produto_lista.Id" disabled size="6" />
+                    </p>
+                    <p>
+                        <!--Tem que alterar o codigo de usuário abaixo
+    <input type="text" name="UsuarioID" value="1" hidden /> -->
+                        <label>Selecione o Id de Usuário:</label>
+                        <select name="UsuarioID">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                        </select>
+                        <input type="submit" value="Comprar">
+                    </p>
+                    <img src="~/Site/img/@produto_lista.Imagem" width="100" height="100" />
+                </form>
+            </div>
+        }
 
-        
-        <p><a href="~/Site/index.cshtml">Pagina Inicial</a> - <a href="~/Site/formulario_cadastro_produto .cshtml">Novo Cadastro</a></p>
+
+        <p><a href="~/Site/formulario_cadastro_usuario.cshtml">Realize o cadastro de usuários em nosso Site.</a></p>
+        <p><a href="~/Site/formulario_cadastro_produto.cshtml">Realize o cadastro de produtos em nosso Site.</a></p>
+        <p><a href="~/Site/compras.cshtml">Realize compras em nosso Site.</a></p>
     </div>
 </body>
 </html>
